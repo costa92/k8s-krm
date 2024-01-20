@@ -1,0 +1,17 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: krm
+build:
+  artifacts:
+    - image: krm-api
+      docker:
+        dockerfile: cmd/krm/Dockerfile
+manifests:
+  rawYaml:
+    - builds/k8s/deployment.yaml
+    - builds/k8s/service.yaml
+portForward:
+  - resourceType: service
+    resourceName: krm-service
+    port: 8000  # 远程的端口

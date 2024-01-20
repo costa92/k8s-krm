@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: krm-api
+  labels:
+    app: krm
+spec:
+  replicas: 1
+#  strategy:
+#    type: RollingUpdate
+#    rollingUpdate:
+#      maxSurge: 20%
+#      maxUnavailable: 3
+  selector:
+    matchLabels:
+      app: krm-api
+  template:
+    metadata:
+      labels:
+        app: krm-api
+    spec:
+      containers:
+      - name: krm-api
+        image: krm-api
