@@ -1,16 +1,10 @@
 package main
 
-import (
-	"fmt"
-	"github.com/costa92/krm/pkg/version"
-	"time"
-)
+import "github.com/costa92/krm/cmd/krm/app"
 
 func main() {
-	for {
-		fmt.Println("Hello, world!")
-		time.Sleep(10 * time.Second)
-		version.CheckNewVersion()
+	cmd := app.NewAPIServerCommand()
+	if err := cmd.Execute(); err != nil {
+		panic(err)
 	}
-
 }
