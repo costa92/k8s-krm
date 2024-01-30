@@ -12,7 +12,7 @@ func NewAPIServerCommand() *cobra.Command {
 		Short: "Start a krm server",
 		Long:  "Start a krm server",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			completedOption, err := s.Complete()
+			completedOption, err := Complete(s)
 			if err != nil {
 				return err
 			}
@@ -22,6 +22,21 @@ func NewAPIServerCommand() *cobra.Command {
 	return cmd
 }
 
-func Run(opts options.CompletedOptions) error {
+// completedServerRunOptions
+type completedServerRunOptions struct {
+	*options.CompletedOptions
+}
+
+func Complete(s *options.ServerRunOptions) (completedServerRunOptions, error) {
+	var options completedServerRunOptions
+	err := s.SecureServing.ApplyTo()
+	if err != nil {
+		return options, err
+	}
+	options.CompletedOptions = s.GenericServerRunOptions.Complete()
+	return options, nil
+}
+
+func Run(opts completedServerRunOptions) error {
 	return nil
 }
