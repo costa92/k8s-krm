@@ -33,7 +33,6 @@ func Complete(s *options.ServerRunOptions) (completedServerRunOptions, error) {
 	if err != nil {
 		return options, err
 	}
-	options.CompletedOptions = s.GenericServerRunOptions.Complete()
 	return options, nil
 }
 
