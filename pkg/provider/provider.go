@@ -1,4 +1,3 @@
 package provider
 
-type Provider interface {
-}
+type Provider interface{}

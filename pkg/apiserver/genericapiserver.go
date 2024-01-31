@@ -1,10 +1,11 @@
 package apiserver
 
 import (
+	"log"
+
 	"github.com/costa92/krm/cmd/krm/app/options"
 	"github.com/costa92/krm/pkg/version"
 	"github.com/gin-gonic/gin"
-	"log"
 )
 
 type GenericAPIServer struct {

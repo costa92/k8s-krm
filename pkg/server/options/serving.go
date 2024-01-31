@@ -22,6 +22,7 @@ func NewSecureServingOptions() *SecureServingOptions {
 func (s *SecureServingOptions) Address() string {
 	return net.JoinHostPort(s.BindAddress.String(), strconv.Itoa(s.BindPort))
 }
+
 func (s *SecureServingOptions) Validate() []error {
 	return nil
 }

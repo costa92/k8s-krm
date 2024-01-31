@@ -1,8 +1,6 @@
 package version
 
-var (
-	Version = "dev"
-)
+var Version = "dev"
 
 // CheckNewVersion checks if a new version is available.
 func CheckNewVersion() {

@@ -2,8 +2,9 @@ package options
 
 import (
 	"fmt"
-	"github.com/costa92/krm/pkg/server"
 	"testing"
+
+	"github.com/costa92/krm/pkg/server"
 )
 
 func Test_Apply(t *testing.T) {
@@ -11,7 +12,7 @@ func Test_Apply(t *testing.T) {
 	cfg := server.NewConfig()
 	cfg.SecureServing.Addr = "0.0.0.0"
 	cfg.SecureServing.Port = 8000
-	err := ops.ApplyTo(*cfg)
+	err := ops.ApplyTo()
 	if err != nil {
 		panic(err)
 	}
