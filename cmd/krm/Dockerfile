@@ -1,13 +1,13 @@
 FROM golang:1.21.0 as builder
 WORKDIR /code
-COPY cmd/krm cmd/krm
-COPY pkg pkg
-COPY go.mod .
+ADD . .
+RUN ls -la
 
-ARG SKAFFOLD_GO_GCFLAGS
-RUN go build -gcflags="${SKAFFOLD_GO_GCFLAGS}" -trimpath -o /app cmd/krm/main.go
-
+RUN go mod download
+RUN go build -gcflags="all=-N -l" -trimpath -o /app cmd/krm/main.go
 
 FROM alpine:3
 COPY --from=builder /app .
+RUN ls -la
+RUN ./app
 CMD ["./app"]

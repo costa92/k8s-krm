@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/costa92/krm/cmd/krm/app/options"
+	"github.com/costa92/krm/pkg/apiserver"
 	"github.com/spf13/cobra"
 )
 
@@ -12,30 +13,34 @@ func NewAPIServerCommand() *cobra.Command {
 		Short: "Start a krm server",
 		Long:  "Start a krm server",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			completedOption, err := Complete(s)
+			completedServerRunOption, err := Complete(s)
 			if err != nil {
 				return err
 			}
-			return Run(completedOption)
+			return Run(completedServerRunOption)
 		},
 	}
 	return cmd
 }
 
-// completedServerRunOptions
 type completedServerRunOptions struct {
-	*options.CompletedOptions
+	CompletedOpts options.CompletedOptions
+	Gs            *apiserver.GenericAPIServer
 }
 
 func Complete(s *options.ServerRunOptions) (completedServerRunOptions, error) {
-	var options completedServerRunOptions
-	err := s.SecureServing.ApplyTo()
+	var opts completedServerRunOptions
+	completedOpts, err := s.Complete()
 	if err != nil {
-		return options, err
+		return opts, err
 	}
-	return options, nil
+	return completedServerRunOptions{
+		CompletedOpts: completedOpts,
+		Gs:            apiserver.NewGenericAPIServer(),
+	}, err
 }
 
 func Run(opts completedServerRunOptions) error {
+	opts.Gs.Run(":8000")
 	return nil
 }
