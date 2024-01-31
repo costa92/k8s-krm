@@ -21,11 +21,8 @@ func (opts *ServerRunOptions) Complete() (CompletedOptions, error) {
 		}, nil
 	}
 	completed := completedOptions{
-		ServerRunOptions: options.NewServerRunOptions(),
-		SecureServingOptions: &options.SecureServingOptions{
-			BindAddress: opts.SecureServing.BindAddress,
-			BindPort:    opts.SecureServing.BindPort,
-		},
+		ServerRunOptions:     options.NewServerRunOptions(),
+		SecureServingOptions: options.NewSecureServingOptions(),
 	}
 	return CompletedOptions{
 		completedOptions: &completed,
