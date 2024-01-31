@@ -15,7 +15,7 @@ type SecureServingOptions struct {
 func NewSecureServingOptions() *SecureServingOptions {
 	return &SecureServingOptions{
 		BindAddress: net.ParseIP("0.0.0.0"),
-		BindPort:    8080,
+		BindPort:    8000,
 	}
 }
 

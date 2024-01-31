@@ -1,6 +1,10 @@
 package options
 
+import "github.com/costa92/krm/pkg/server/options"
+
 type completedOptions struct {
+	ServerRunOptions     *options.ServerRunOptions
+	SecureServingOptions *options.SecureServingOptions
 }
 
 type CompletedOptions struct {
@@ -11,10 +15,18 @@ type CompletedOptions struct {
 func (opts *ServerRunOptions) Complete() (CompletedOptions, error) {
 	if opts == nil {
 		return CompletedOptions{
-			completedOptions: &completedOptions{},
+			completedOptions: &completedOptions{
+				ServerRunOptions: options.NewServerRunOptions(),
+			},
 		}, nil
 	}
-	completed := completedOptions{}
+	completed := completedOptions{
+		ServerRunOptions: options.NewServerRunOptions(),
+		SecureServingOptions: &options.SecureServingOptions{
+			BindAddress: opts.SecureServing.BindAddress,
+			BindPort:    opts.SecureServing.BindPort,
+		},
+	}
 	return CompletedOptions{
 		completedOptions: &completed,
 	}, nil
