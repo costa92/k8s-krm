@@ -13,13 +13,6 @@ type CompletedOptions struct {
 }
 
 func (opts *ServerRunOptions) Complete() (CompletedOptions, error) {
-	if opts == nil {
-		return CompletedOptions{
-			completedOptions: &completedOptions{
-				ServerRunOptions: options.NewServerRunOptions(),
-			},
-		}, nil
-	}
 	completed := completedOptions{
 		ServerRunOptions:     options.NewServerRunOptions(),
 		SecureServingOptions: options.NewSecureServingOptions(),
