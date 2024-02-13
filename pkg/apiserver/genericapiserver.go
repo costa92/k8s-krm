@@ -1,24 +1,25 @@
 package apiserver
 
 import (
+	"log"
+	"net/http"
+	_ "net/http/pprof"
+
 	"github.com/costa92/krm/cmd/krm/app/options"
 	"github.com/costa92/krm/pkg/version"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/errgroup"
-	"log"
-	"net/http"
-	_ "net/http/pprof"
 )
 
 type GenericAPIServer struct {
 	middlewares []string
 
 	*gin.Engine
-
-	healthz        bool
-	enableMetrics  bool
-	insecureServer *http.Server
+	healthz         bool
+	enableMetrics   bool
+	enableProfiling bool
+	insecureServer  *http.Server
 }
 
 func initGenericAPIServer(s *GenericAPIServer) {
@@ -45,7 +46,10 @@ func (s *GenericAPIServer) InstallAPIs() {
 			"version": version.GetVersion(),
 		})
 	})
-	pprof.Register(s.Engine, "debug/pprof")
+	// open pprof http://ip:port/debug/pprof
+	if s.enableProfiling {
+		pprof.Register(s.Engine, "debug/pprof")
+	}
 }
 
 // Run runs the server
@@ -63,7 +67,6 @@ func (s *GenericAPIServer) Run(opts options.CompletedOptions) error {
 		}
 		return nil
 	})
-
 	if err := eg.Wait(); err != nil {
 		log.Fatal(err.Error())
 	}

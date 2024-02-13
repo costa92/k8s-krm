@@ -3,10 +3,12 @@ module github.com/costa92/krm
 go 1.21.0
 
 require (
+	github.com/BurntSushi/toml v1.3.2
 	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/spf13/cobra v1.8.0
 	golang.org/x/sync v0.6.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -35,5 +37,4 @@ require (
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

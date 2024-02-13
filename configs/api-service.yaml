@@ -1,0 +1,10 @@
+# api-service 全局配置
+
+server:
+   mode: debug
+   healthz: true
+
+# http 配置
+insecure:
+    bind-address: 0.0.0.0
+    bind-port: 8080

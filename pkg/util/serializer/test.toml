@@ -1,0 +1,3 @@
+[server]
+mode = "debug"
+healthz = true

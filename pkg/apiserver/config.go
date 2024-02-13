@@ -8,8 +8,10 @@ import (
 func NewConfig(opts *options.ServerRunOptions) *GenericAPIServer {
 	gin.SetMode(opts.Mode)
 	res := &GenericAPIServer{
-		healthz: opts.Healthz,
-		Engine:  gin.New(),
+		healthz:         opts.Healthz,
+		Engine:          gin.New(),
+		enableMetrics:   opts.EnableMetrics,
+		enableProfiling: opts.EnableProfiling,
 	}
 	initGenericAPIServer(res)
 	return res
