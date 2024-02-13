@@ -3,8 +3,10 @@ module github.com/costa92/krm
 go 1.21.0
 
 require (
+	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/spf13/cobra v1.8.0
+	golang.org/x/sync v0.6.0
 )
 
 require (

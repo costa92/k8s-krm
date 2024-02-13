@@ -1,6 +1,8 @@
 package main
 
-import "github.com/costa92/krm/cmd/krm/app"
+import (
+	"github.com/costa92/krm/cmd/krm/app"
+)
 
 func main() {
 	cmd := app.NewAPIServerCommand()
