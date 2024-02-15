@@ -3,6 +3,8 @@ package options
 import (
 	"net"
 	"strconv"
+
+	"github.com/spf13/pflag"
 )
 
 type SecureServingOptions struct {
@@ -12,11 +14,16 @@ type SecureServingOptions struct {
 	BindPort int
 }
 
-func NewSecureServingOptions() *SecureServingOptions {
+func DefaultServingOptions() *SecureServingOptions {
 	return &SecureServingOptions{
 		BindAddress: net.ParseIP("0.0.0.0"),
 		BindPort:    8000,
 	}
+}
+
+func NewSecureServingOptions() *SecureServingOptions {
+	secureServingOptions := DefaultServingOptions()
+	return secureServingOptions
 }
 
 func (s *SecureServingOptions) Address() string {
@@ -29,4 +36,12 @@ func (s *SecureServingOptions) Validate() []error {
 
 func (s *SecureServingOptions) ApplyTo() error {
 	return nil
+}
+
+func (s *SecureServingOptions) AddFlags(fs *pflag.FlagSet) {
+	if s == nil {
+		return
+	}
+	fs.IPVar(&s.BindAddress, "bind-address", s.BindAddress, "The IP address on which to serve the secure server")
+	fs.IntVar(&s.BindPort, "bind-port", s.BindPort, "The port on which to serve the secure server")
 }

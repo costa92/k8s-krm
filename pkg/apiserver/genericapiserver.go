@@ -1,11 +1,11 @@
 package apiserver
 
 import (
+	options2 "github.com/costa92/krm/pkg/apiserver/options"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
 
-	"github.com/costa92/krm/cmd/krm/app/options"
 	"github.com/costa92/krm/pkg/version"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
@@ -53,8 +53,8 @@ func (s *GenericAPIServer) InstallAPIs() {
 }
 
 // Run runs the server
-func (s *GenericAPIServer) Run(opts options.CompletedOptions) error {
-	addr := opts.SecureServingOptions.Address()
+func (s *GenericAPIServer) Run(opts options2.CompletedOptions) error {
+	addr := opts.SecureServing.Address()
 	s.insecureServer = &http.Server{
 		Addr:    addr,
 		Handler: s,

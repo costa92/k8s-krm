@@ -1,13 +1,16 @@
 package app
 
 import (
-	"github.com/costa92/krm/cmd/krm/app/options"
+	appoptions "github.com/costa92/krm/cmd/krm/app/options"
 	"github.com/costa92/krm/pkg/apiserver"
+	"github.com/costa92/krm/pkg/apiserver/options"
+	controlplaneapiserver "github.com/costa92/krm/pkg/apiserver/options"
 )
 
 type apiServer struct {
-	opts             options.CompletedOptions
+	opts             controlplaneapiserver.CompletedOptions
 	genericAPIServer apiserver.GenericAPIServer
+	config           *apiserver.Config
 }
 
 type preparedAPIServer struct {
@@ -15,10 +18,11 @@ type preparedAPIServer struct {
 }
 
 func createAPIServer(opts completedServerRunOptions) *apiServer {
-	gs := apiserver.NewConfig(opts.CompletedOpts.ServerRunOptions)
+	cfg, gs := apiserver.NewConfig(opts.CompletedOpts)
 	return &apiServer{
 		genericAPIServer: *gs,
 		opts:             opts.CompletedOpts,
+		config:           cfg,
 	}
 }
 
@@ -32,8 +36,8 @@ func (s *apiServer) Run() error {
 	return s.genericAPIServer.Run(s.opts)
 }
 
-func Run(opts completedServerRunOptions) error {
-	if err := createAPIServer(opts).prepareRun().Run(); err != nil {
+func Run(s completedServerRunOptions) error {
+	if err := createAPIServer(s).prepareRun().Run(); err != nil {
 		return err
 	}
 	return nil
@@ -44,7 +48,7 @@ type completedServerRunOptions struct {
 }
 
 // Complete completes all the required options.
-func Complete(s *options.ServerRunOptions) (completedServerRunOptions, error) {
+func Complete(s *appoptions.ServerRunOptions) (completedServerRunOptions, error) {
 	var opts completedServerRunOptions
 	completedOpts, err := s.Complete()
 	if err != nil {

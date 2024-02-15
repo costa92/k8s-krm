@@ -1,16 +1,22 @@
 package options
 
-import genericoptions "github.com/costa92/krm/pkg/server/options"
+import (
+	controlplaneapiserver "github.com/costa92/krm/pkg/apiserver/options"
+	"github.com/spf13/pflag"
+)
 
 type ServerRunOptions struct {
-	GenericServerRunOptions *genericoptions.ServerRunOptions
-	SecureServing           *genericoptions.SecureServingOptions
+	*controlplaneapiserver.Options
 }
 
 func NewServerRunOptions() *ServerRunOptions {
 	s := ServerRunOptions{
-		GenericServerRunOptions: genericoptions.NewServerRunOptions(),
-		SecureServing:           genericoptions.NewSecureServingOptions(),
+		Options: controlplaneapiserver.NewOptions(),
 	}
 	return &s
+}
+
+func (s *ServerRunOptions) AddFlags(fs *pflag.FlagSet) {
+	s.GenericServerRunOptions.AddFlags(fs)
+	s.SecureServing.AddFlags(fs)
 }

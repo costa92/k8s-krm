@@ -3,10 +3,12 @@ package app
 import (
 	"github.com/costa92/krm/cmd/krm/app/options"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
 func NewAPIServerCommand() *cobra.Command {
 	s := options.NewServerRunOptions()
+	s.AddFlags(pflag.CommandLine)
 	cmd := &cobra.Command{
 		Use:   "server",
 		Short: "Start a krm server",
