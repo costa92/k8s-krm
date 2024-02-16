@@ -9,20 +9,16 @@ import (
 )
 
 type ServerRunOptions struct {
-	RequestTimeout  time.Duration
-	Healthz         bool
-	Mode            string
-	EnableMetrics   bool
-	EnableProfiling bool
+	Mode           string
+	Healthz        bool
+	RequestTimeout time.Duration
 }
 
 func NewServerRunOptions() *ServerRunOptions {
 	return &ServerRunOptions{
-		RequestTimeout:  10 * time.Second,
-		Healthz:         true,
-		Mode:            gin.ReleaseMode,
-		EnableMetrics:   true,
-		EnableProfiling: true,
+		RequestTimeout: 10 * time.Second,
+		Healthz:        true,
+		Mode:           gin.ReleaseMode,
 	}
 }
 
@@ -49,6 +45,4 @@ func (s *ServerRunOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.DurationVar(&s.RequestTimeout, "request-timeout", s.RequestTimeout, "The default request timeout")
 	fs.BoolVar(&s.Healthz, "healthz", s.Healthz, "Enable healthz endpoint")
 	fs.StringVar(&s.Mode, "mode", s.Mode, "Set gin mode")
-	fs.BoolVar(&s.EnableMetrics, "enable-metrics", s.EnableMetrics, "Enable metrics")
-	fs.BoolVar(&s.EnableProfiling, "enable-profiling", s.EnableProfiling, "Enable profiling")
 }
