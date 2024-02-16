@@ -14,7 +14,7 @@ const (
 	flagHelpShorthand = "H"
 )
 
-func HelpCommand(name string) *cobra.Command {
+func helpCommand(name string) *cobra.Command {
 	return &cobra.Command{
 		Use:   "help [command]",
 		Short: "Help about any command.",

@@ -132,6 +132,7 @@ func (a *App) applyOptionRules() error {
 			return err
 		}
 	}
+	// Validate the options
 	if errs := a.options.Validate(); len(errs) != 0 {
 		panic(errs)
 	}
