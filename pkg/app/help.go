@@ -1,3 +1,4 @@
+//nolint:unparam
 package app
 
 import (
@@ -10,10 +11,11 @@ import (
 )
 
 const (
-	flagHelp          = "help"
-	flagHelpShorthand = "H"
+	flagHelp          = "help" //nolint
+	flagHelpShorthand = "H"    //nolint
 )
 
+// nolint
 func helpCommand(name string) *cobra.Command {
 	return &cobra.Command{
 		Use:   "help [command]",
@@ -36,13 +38,14 @@ Simply type ` + name + ` help [path to command] for full details.`,
 
 // addHelpFlag adds flags for a specific application to the specified FlagSet
 // object.
-
+// nolint
 func addHelpFlag(name string, fs *pflag.FlagSet) {
 	fs.BoolP(flagHelp, flagHelpShorthand, false, fmt.Sprintf("Help for %s.", name))
 }
 
 // addHelpCommandFlag adds flags for a specific command of application to the
 // specified FlagSet object.
+// nolint
 func addHelpCommandFlag(usage string, fs *pflag.FlagSet) {
 	fs.BoolP(
 		flagHelp,

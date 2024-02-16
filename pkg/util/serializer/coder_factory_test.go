@@ -25,6 +25,16 @@ func (f *testMetaFactory) Decode(data []byte, obj interface{}) error {
 	return nil
 }
 
+func Test_testMetaFactory(t *testing.T) {
+	f := &testMetaFactory{}
+	encode, err := f.Encode("test")
+	if err != nil {
+		return
+	}
+	fmt.Println(encode)
+
+}
+
 func Test_Run(t *testing.T) {
 	opts := CodecFactoryOptions{
 		MetaType: MeteTypeYaml,
@@ -33,5 +43,9 @@ func Test_Run(t *testing.T) {
 	if codeFactory.Coder == nil {
 		t.Errorf("Expected a non-nil value, got nil")
 	}
-	codeFactory.Encode("test")
+	encode, err := codeFactory.Encode("test")
+	if err != nil {
+		return
+	}
+	fmt.Println(encode)
 }

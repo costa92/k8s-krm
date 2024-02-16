@@ -45,7 +45,7 @@ func (s *SecureServingOptions) Validate() []error {
 			)
 		}
 	}
-	return nil
+	return errors
 }
 
 func (s *SecureServingOptions) ApplyTo(cfg *server.Config) error {

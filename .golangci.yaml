@@ -1,0 +1,27 @@
+run:
+  tests: false
+  timeout: 600s
+
+# output configuration options
+output:
+  # See the dedicated "output" documentation section.
+#  option: value
+
+# 修改某个特定linter的设置
+# All available settings of specific linters.
+linters-settings:
+  # See the dedicated "linters-settings" documentation section.
+#  option: value
+
+# 开启/关闭 某个linter
+linters:
+  # See the dedicated "linters" documentation section.
+#  option: value
+
+issues:
+  # See the dedicated "issues" documentation section.
+#  option: value
+
+severity:
+  # See the dedicated "severity" documentation section.
+#  option: value
