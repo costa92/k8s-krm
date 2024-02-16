@@ -6,6 +6,8 @@ import (
 	"github.com/costa92/krm/pkg/app"
 )
 
+// NewApp creates a new app for the api service
+// zh: 创建一个新的 api 服务实例
 func NewApp(basename string) *app.App {
 	opts := options.NewRunOptions()
 	application := app.NewApp("api service for krm",

@@ -13,6 +13,10 @@ type Config struct {
 	SecureServing *SecureServingInfo
 	// RequestTimeout is the default timeout for requests to the server.
 	RequestTimeout time.Duration // 请求时间
+
+	// EnableProfiling specifies whether to enable profiling via web interface host:port/debug/pprof/
+	EnableProfiling bool
+	EnableMetrics   bool
 }
 
 type SecureServingInfo struct {
@@ -22,8 +26,10 @@ type SecureServingInfo struct {
 // NewConfig returns a new Config with default values.
 func NewConfig() *Config {
 	return &Config{
-		Mode:    gin.ReleaseMode,
-		Healthz: true,
+		Mode:            gin.ReleaseMode,
+		Healthz:         true,
+		EnableProfiling: true,
+		EnableMetrics:   true,
 	}
 }
 
@@ -46,6 +52,8 @@ func (c CompletedConfig) New() (*GenericAPIServer, error) {
 		SecureServingInfo: c.SecureServing,
 		Engine:            gin.New(),
 		healthz:           c.Healthz,
+		enableMetrics:     c.EnableMetrics,
+		enableProfiling:   c.EnableProfiling,
 	}
 	initGenericAPIServer(s)
 	return s, nil

@@ -9,13 +9,17 @@ import (
 )
 
 type RunOptions struct {
-	InsecureServing *options.SecureServingOptions `json:"insecure" mapstructure:"insecure" yaml:"insecure"`
+	InsecureServing  *options.SecureServingOptions `json:"insecure" mapstructure:"insecure" yaml:"insecure"`
+	ServerRunOptions *options.ServerRunOptions     `json:"server" mapstructure:"server" yaml:"server"`
+	Feature          *options.FeatureOptions       `json:"feature" mapstructure:"feature" yaml:"feature"`
 }
 
 // NewRunOptions returns a new RunOptions
 func NewRunOptions() *RunOptions {
 	return &RunOptions{
-		InsecureServing: options.NewSecureServingOptions(),
+		InsecureServing:  options.NewSecureServingOptions(),
+		ServerRunOptions: options.NewServerRunOptions(),
+		Feature:          options.NewFeatureOptions(),
 	}
 }
 
@@ -23,11 +27,15 @@ func NewRunOptions() *RunOptions {
 func (r *RunOptions) Validate() []error {
 	var errs []error
 	errs = append(errs, r.InsecureServing.Validate()...)
+	errs = append(errs, r.ServerRunOptions.Validate()...)
+	errs = append(errs, r.Feature.Validate()...)
 	return errs
 }
 
 func (r *RunOptions) Flags() (fss cliflags.NamedFlagSets) {
 	r.InsecureServing.AddFlags(fss.FlagSet("insecure"))
+	r.ServerRunOptions.AddFlags(fss.FlagSet("server"))
+	r.Feature.AddFlags(fss.FlagSet("feature"))
 	return fss
 }
 

@@ -1,6 +1,7 @@
 package options
 
 import (
+	"github.com/costa92/krm/pkg/server"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -32,6 +33,13 @@ func (s *ServerRunOptions) Complete() {
 func (s *ServerRunOptions) Validate() []error {
 	var errs []error
 	return errs
+}
+
+func (s *ServerRunOptions) ApplyTo(cfg *server.Config) error {
+	cfg.Mode = s.Mode
+	cfg.Healthz = s.Healthz
+	cfg.RequestTimeout = s.RequestTimeout
+	return nil
 }
 
 func (s *ServerRunOptions) AddFlags(fs *pflag.FlagSet) {

@@ -37,9 +37,16 @@ func (a *apiServer) Run() error {
 func buildGenericConfig(cfg *config.Config) (genericConfig *genericserver.Config, lastErr error) {
 	fmt.Println(cfg.RunOptions.InsecureServing.Address())
 	genericConfig = genericserver.NewConfig()
+
 	// Apply the insecure serving options to the generic server
 	// 注意 是 cfg 的值赋值到 genericConfig
 	if lastErr = cfg.InsecureServing.ApplyTo(genericConfig); lastErr != nil {
+		return
+	}
+	if lastErr = cfg.ServerRunOptions.ApplyTo(genericConfig); lastErr != nil {
+		return
+	}
+	if lastErr = cfg.Feature.ApplyTo(genericConfig); lastErr != nil {
 		return
 	}
 

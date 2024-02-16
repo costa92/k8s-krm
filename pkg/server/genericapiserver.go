@@ -12,10 +12,8 @@ import (
 )
 
 type GenericAPIServer struct {
-	middlewares []string
-
+	middlewares       []string
 	SecureServingInfo *SecureServingInfo
-
 	*gin.Engine
 	healthz         bool
 	enableMetrics   bool
