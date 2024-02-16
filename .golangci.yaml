@@ -4,8 +4,13 @@ run:
   tests: false  # 是否运行测试
   timeout: 600s # 超时时间
   skip-dirs: # 跳过的目录
+    - .git
+    - .idea
+    - .vscode
     - builds
     - vendor
+    - configs
+    - scripts
 
 
 # output configuration options
