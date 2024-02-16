@@ -1,6 +1,7 @@
 package options
 
 import (
+	"fmt"
 	"net"
 	"strconv"
 
@@ -32,12 +33,31 @@ func (s *SecureServingOptions) Address() string {
 }
 
 func (s *SecureServingOptions) Validate() []error {
+	var errors []error
+	if s.BindPort == 0 {
+		if s.BindPort < 0 || s.BindPort > 65535 {
+			errors = append(
+				errors,
+				fmt.Errorf(
+					"--insecure.bind-port %v must be between 0 and 65535, inclusive. 0 for turning off insecure (HTTP) port",
+					s.BindPort,
+				),
+			)
+		}
+	}
 	return nil
 }
 
 func (s *SecureServingOptions) ApplyTo(cfg *server.Config) error {
 	cfg.SecureServing = &server.SecureServingInfo{
 		Address: s.Address(),
+	}
+	return nil
+}
+
+func (s *SecureServingOptions) Complete() error {
+	if s == nil || s.BindPort == 0 {
+		return nil
 	}
 	return nil
 }

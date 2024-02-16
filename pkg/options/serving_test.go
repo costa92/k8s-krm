@@ -10,8 +10,9 @@ import (
 func Test_Apply(t *testing.T) {
 	ops := NewSecureServingOptions()
 	cfg := server.NewConfig()
-	cfg.SecureServing.Addr = "0.0.0.0"
-	cfg.SecureServing.Port = 8000
+	if err := ops.ApplyTo(cfg); err != nil {
+		t.Fatal(err)
+	}
 	data := ops.Address()
 	fmt.Println(data)
 }

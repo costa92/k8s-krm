@@ -22,8 +22,8 @@ func NewServerRunOptions() *ServerRunOptions {
 	}
 }
 
-func (s *ServerRunOptions) Complete() {
-	return
+func (s *ServerRunOptions) Complete() error {
+	return nil
 }
 
 func (s *ServerRunOptions) Validate() []error {

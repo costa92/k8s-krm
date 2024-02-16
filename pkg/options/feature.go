@@ -32,3 +32,7 @@ func (o *FeatureOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.BoolVar(&o.EnableProfiling, "enable-profiling", o.EnableProfiling, "Enable profiling via web interface host:port/debug/pprof/")
 	fs.BoolVar(&o.EnableMetrics, "enable-metrics", o.EnableMetrics, "Enable metrics")
 }
+
+func (o *FeatureOptions) Complete() error {
+	return nil
+}

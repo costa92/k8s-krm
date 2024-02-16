@@ -1,7 +1,6 @@
 package user
 
-type User struct {
-}
+type User struct{}
 
 func NewUser() *User {
 	return &User{}

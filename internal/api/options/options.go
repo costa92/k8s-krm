@@ -10,7 +10,7 @@ import (
 
 type RunOptions struct {
 	InsecureServing  *options.SecureServingOptions `json:"insecure" mapstructure:"insecure" yaml:"insecure"`
-	ServerRunOptions *options.ServerRunOptions     `json:"server" mapstructure:"server" yaml:"server"`
+	ServerRunOptions *options.ServerRunOptions     `json:"server"  mapstructure:"server" yaml:"server"`
 	Feature          *options.FeatureOptions       `json:"feature" mapstructure:"feature" yaml:"feature"`
 }
 
@@ -46,4 +46,11 @@ func (r *RunOptions) ApplyTo(cfg *server.Config) error {
 func (r *RunOptions) String() string {
 	data, _ := json.Marshal(r)
 	return string(data)
+}
+
+func (r *RunOptions) Complete() error {
+	if err := r.InsecureServing.Complete(); err != nil {
+		return err
+	}
+	return nil
 }

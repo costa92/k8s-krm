@@ -45,8 +45,6 @@ func (a *App) Run() {
 // Path: pkg/server/server.go
 // Compare this snippet from pkg/app/app.go:
 // package app
-//
-
 type Option func(*App)
 
 func WithOptions(opt CliOptions) Option {
@@ -99,7 +97,6 @@ func (a *App) runCommand(cmd *cobra.Command, args []string) error {
 	if err := viper.Unmarshal(a.options); err != nil {
 		return err
 	}
-
 	// Apply the options
 	if a.options != nil {
 		if err := a.applyOptionRules(); err != nil {

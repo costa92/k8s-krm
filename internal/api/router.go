@@ -9,6 +9,7 @@ func initRouter(g *gin.Engine) {
 	installMiddleware(g)
 	installControllerV1(g)
 }
+
 func installMiddleware(g *gin.Engine) {
 }
 

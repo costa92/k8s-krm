@@ -1,6 +1,6 @@
 # api-service 全局配置
 server:
-   mode: debug
+   mode: debug # 运行模式, release/debug
    healthz: true
 
 # http 配置
