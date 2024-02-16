@@ -39,6 +39,8 @@ func (a *apiServer) PrepareRun() preparedAPIServer {
 }
 
 func (a *apiServer) Run() error {
+	// grpc server run
+
 	return a.genericAPIServer.Run()
 }
 
@@ -53,10 +55,8 @@ func buildGenericConfig(cfg *config.Config) (genericConfig *genericserver.Config
 	if lastErr = cfg.ServerRunOptions.ApplyTo(genericConfig); lastErr != nil {
 		return
 	}
-
 	if lastErr = cfg.Feature.ApplyTo(genericConfig); lastErr != nil {
 		return
 	}
-
 	return genericConfig, nil
 }
