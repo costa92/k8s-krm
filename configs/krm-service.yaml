@@ -1,7 +1,8 @@
-# api-service 全局配置
+# krm-service 全局配置
+
 server:
-   mode: debug
-   healthz: true
+  mode: debug
+  healthz: true
 
 # http 配置
 insecure:

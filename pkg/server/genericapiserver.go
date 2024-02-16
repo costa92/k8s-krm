@@ -1,7 +1,6 @@
-package apiserver
+package server
 
 import (
-	options2 "github.com/costa92/krm/pkg/apiserver/options"
 	"log"
 	"net/http"
 	_ "net/http/pprof"
@@ -14,6 +13,8 @@ import (
 
 type GenericAPIServer struct {
 	middlewares []string
+
+	SecureServingInfo *SecureServingInfo
 
 	*gin.Engine
 	healthz         bool
@@ -53,16 +54,15 @@ func (s *GenericAPIServer) InstallAPIs() {
 }
 
 // Run runs the server
-func (s *GenericAPIServer) Run(opts options2.CompletedOptions) error {
-	addr := opts.SecureServing.Address()
+func (s *GenericAPIServer) Run() error {
 	s.insecureServer = &http.Server{
-		Addr:    addr,
+		Addr:    s.SecureServingInfo.Address,
 		Handler: s,
 	}
 
 	var eg errgroup.Group
 	eg.Go(func() error {
-		if err := http.ListenAndServe(addr, s); err != nil {
+		if err := s.insecureServer.ListenAndServe(); err != nil {
 			return err
 		}
 		return nil

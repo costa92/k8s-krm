@@ -26,7 +26,6 @@ func NewServerRunOptions() *ServerRunOptions {
 }
 
 func (s *ServerRunOptions) Complete() {
-
 	return
 }
 
