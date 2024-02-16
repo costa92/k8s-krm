@@ -68,6 +68,7 @@ func (s *GenericAPIServer) Run() error {
 		Handler:           s,
 		ReadHeaderTimeout: 30 * time.Second,
 	}
+
 	var eg errgroup.Group
 	eg.Go(func() error {
 		if err := s.insecureServer.ListenAndServe(); err != nil {
