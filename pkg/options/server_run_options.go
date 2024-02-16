@@ -1,9 +1,9 @@
 package options
 
 import (
-	"github.com/costa92/krm/pkg/server"
 	"time"
 
+	"github.com/costa92/krm/pkg/server"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/pflag"
 )

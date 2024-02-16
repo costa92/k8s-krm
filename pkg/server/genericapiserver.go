@@ -8,6 +8,7 @@ import (
 	"github.com/costa92/krm/pkg/version"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
+	ginprometheus "github.com/zsais/go-gin-prometheus"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -40,11 +41,19 @@ func (s *GenericAPIServer) InstallAPIs() {
 			})
 		})
 	}
+
 	s.GET("/version", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"version": version.GetVersion(),
 		})
 	})
+
+	// open prometheus metrics
+	if s.enableMetrics {
+		prometheus := ginprometheus.NewPrometheus("gin")
+		prometheus.Use(s.Engine)
+	}
+
 	// open pprof http://ip:port/debug/pprof
 	if s.enableProfiling {
 		pprof.Register(s.Engine, "debug/pprof")
