@@ -9,7 +9,8 @@ import (
 type MetaFactory struct{}
 
 // Interpret interprets the data
-func (t *MetaFactory) Interpret(data []byte) error {
+// onlint:revive
+func (t *MetaFactory) Interpret(_ []byte) error {
 	return nil
 }
 

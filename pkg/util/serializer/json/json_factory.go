@@ -5,23 +5,16 @@ import "encoding/json"
 type MetaFactory struct{}
 
 // Interpret interprets the data
-func (j *MetaFactory) Interpret(data []byte) error {
+func (j *MetaFactory) Interpret(_ []byte) error {
 	return nil
 }
 
 // Encode encodes the object into data
 func (j *MetaFactory) Encode(obj interface{}) ([]byte, error) {
-	marshal, err := json.Marshal(obj)
-	if err != nil {
-		return nil, err
-	}
-	return marshal, nil
+	return json.Marshal(obj)
 }
 
 // Decode decodes the data into the object
 func (j *MetaFactory) Decode(data []byte, obj interface{}) error {
-	if err := json.Unmarshal(data, obj); err != nil {
-		return err
-	}
-	return nil
+	return json.Unmarshal(data, obj)
 }

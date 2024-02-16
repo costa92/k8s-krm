@@ -4,7 +4,7 @@ type MeteType string
 
 const (
 	MeteTypeYaml MeteType = "yaml"
-	MeteTypeJson MeteType = "json"
+	MeteTypeJSON MeteType = "json"
 	MeteTypeToml MeteType = "toml"
 )
 
@@ -23,7 +23,7 @@ type Serializer interface {
 
 type (
 	Codec          Serializer
-	JsonSerializer Serializer
-	YamlSerializer Serializer
-	TomlSerializer Serializer
+	JSONSerializer Serializer // nolint:golint,unused
+	YamlSerializer Serializer // nolint:golint,unused
+	TomlSerializer Serializer // nolint:golint,unused
 )

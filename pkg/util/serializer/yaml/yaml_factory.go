@@ -17,8 +17,5 @@ func (y *MetaFactory) Encode(obj interface{}) ([]byte, error) {
 
 // Decode decodes the data into the object
 func (y *MetaFactory) Decode(data []byte, obj interface{}) error {
-	if err := yaml.Unmarshal(data, obj); err != nil {
-		return err
-	}
-	return nil
+	return yaml.Unmarshal(data, obj)
 }

@@ -1,6 +1,12 @@
 run:
-  tests: false
-  timeout: 600s
+  deadline: 1m
+  concurrency: 4 # 并发数
+  tests: false  # 是否运行测试
+  timeout: 600s # 超时时间
+  skip-dirs: # 跳过的目录
+    - builds
+    - vendor
+
 
 # output configuration options
 output:
@@ -12,11 +18,42 @@ output:
 linters-settings:
   # See the dedicated "linters-settings" documentation section.
 #  option: value
+  lll: # 行长度
+    line-length: 200 # 行长度
+
 
 # 开启/关闭 某个linter
 linters:
   # See the dedicated "linters" documentation section.
-#  option: value
+  enable:
+#    - megacheck
+    - govet
+    - bodyclose # 检查res.Body 是否关闭
+#    - deadcode # 检查未使用的代码 已经废弃 使用 unused 替换
+    - unused # 检查未使用的代码
+    - gofmt # 检查代码格式
+    - errcheck # 检查未处理的错误
+    - goconst # 检查重复的字符串
+    - gocyclo # 检查函数的圈复杂度
+    - gosec # 检查安全问题
+    - goimports # 检查import
+    - revive # 检查代码风格
+    - gosimple # 检查简化代码
+    - unconvert # 检查类型转换
+#    - maligned # 检查结构体对齐
+#    - prealloc # 检查预分配
+    - lll # 检查行长度
+    - errorlint # 检查错误信息
+    - dupl # 检查重复代码
+    - gocritic # 检查代码风格
+#    - wsl # 检查行尾空格
+#    - wrapcheck # 检查换行
+#    - testpackage # 检查测试包
+
+  disable:
+    - prealloc  # 检查预分配
+    - maligned  # 检查结构体对齐
+  fast: false
 
 issues:
   # See the dedicated "issues" documentation section.

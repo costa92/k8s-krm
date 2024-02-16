@@ -35,7 +35,7 @@ func NewCodecFactory(opts CodecFactoryOptions) *CodecFactory {
 // MeteType represents the type of meta
 var metaFactoryMap = map[MeteType]Codec{
 	MeteTypeYaml: &yaml.MetaFactory{},
-	MeteTypeJson: &json.MetaFactory{},
+	MeteTypeJSON: &json.MetaFactory{},
 	MeteTypeToml: &toml.MetaFactory{},
 }
 
@@ -44,9 +44,9 @@ func getMetaFactory(metaType MeteType) Codec {
 	return metaFactoryMap[metaType]
 }
 
-// NewJsonSerializer returns a new json serializer
-func NewJsonSerializer() *CodecFactory {
-	return NewCodecFactory(CodecFactoryOptions{MetaType: MeteTypeJson})
+// NewJSONSerializer returns a new json serializer
+func NewJSONSerializer() *CodecFactory {
+	return NewCodecFactory(CodecFactoryOptions{MetaType: MeteTypeJSON})
 }
 
 // NewYamlSerializer returns a new yaml serializer

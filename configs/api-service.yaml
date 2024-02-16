@@ -2,6 +2,7 @@
 server:
    mode: debug # 运行模式, release/debug
    healthz: true
+   max-ping-count: 3 # http 服务启动后，自检尝试次数，默认 3
 
 # http 配置
 insecure:

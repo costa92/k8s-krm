@@ -89,7 +89,7 @@ func (a *App) buildCommand() {
 	a.cmd = &cmd
 }
 
-func (a *App) runCommand(cmd *cobra.Command, args []string) error {
+func (a *App) runCommand(cmd *cobra.Command, _ []string) error {
 	printWorkingDir()
 	cliflags.PrintFlags(cmd.Flags())
 

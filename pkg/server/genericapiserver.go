@@ -3,7 +3,7 @@ package server
 import (
 	"log"
 	"net/http"
-	_ "net/http/pprof"
+	"time"
 
 	"github.com/costa92/krm/pkg/version"
 	"github.com/gin-contrib/pprof"
@@ -61,12 +61,13 @@ func (s *GenericAPIServer) InstallAPIs() {
 }
 
 // Run runs the server
+// nolint: revive
 func (s *GenericAPIServer) Run() error {
 	s.insecureServer = &http.Server{
-		Addr:    s.SecureServingInfo.Address,
-		Handler: s,
+		Addr:              s.SecureServingInfo.Address,
+		Handler:           s,
+		ReadHeaderTimeout: 30 * time.Second,
 	}
-
 	var eg errgroup.Group
 	eg.Go(func() error {
 		if err := s.insecureServer.ListenAndServe(); err != nil {

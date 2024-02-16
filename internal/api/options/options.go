@@ -39,7 +39,7 @@ func (r *RunOptions) Flags() (fss cliflags.NamedFlagSets) {
 	return fss
 }
 
-func (r *RunOptions) ApplyTo(cfg *server.Config) error {
+func (r *RunOptions) ApplyTo(_ *server.Config) error {
 	return nil
 }
 
@@ -49,8 +49,5 @@ func (r *RunOptions) String() string {
 }
 
 func (r *RunOptions) Complete() error {
-	if err := r.InsecureServing.Complete(); err != nil {
-		return err
-	}
-	return nil
+	return r.InsecureServing.Complete()
 }

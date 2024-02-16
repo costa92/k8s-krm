@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/pflag"
 )
 
-func WordSepNormalizeFunc(f *pflag.FlagSet, name string) pflag.NormalizedName {
+func WordSepNormalizeFunc(_ *pflag.FlagSet, name string) pflag.NormalizedName {
 	if strings.Contains(name, "_") {
 		return pflag.NormalizedName(strings.ReplaceAll(name, "_", "-"))
 	}
@@ -20,7 +20,7 @@ func InitFlags(flags *pflag.FlagSet) {
 	flags.AddGoFlagSet(goflag.CommandLine)
 }
 
-func WarnWordSepNormalizeFunc(f *pflag.FlagSet, name string) pflag.NormalizedName {
+func WarnWordSepNormalizeFunc(_ *pflag.FlagSet, name string) pflag.NormalizedName {
 	if strings.Contains(name, "_") {
 		nname := strings.ReplaceAll(name, "_", "-")
 		return pflag.NormalizedName(nname)

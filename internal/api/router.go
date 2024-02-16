@@ -10,7 +10,10 @@ func initRouter(g *gin.Engine) {
 	installControllerV1(g)
 }
 
-func installMiddleware(g *gin.Engine) {
+// onlint:export
+func installMiddleware(_ *gin.Engine) {
+	// g.Use(gin.Logger())
+	// g.Use(gin.Recovery())
 }
 
 func installControllerV1(g *gin.Engine) *gin.Engine {
