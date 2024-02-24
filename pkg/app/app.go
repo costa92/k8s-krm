@@ -42,7 +42,7 @@ func (a *App) Run() {
 	}
 }
 
-// Path: pkg/server/server.go
+// Option Path: pkg/server/server.go
 // Compare this snippet from pkg/app/app.go:
 // package app
 type Option func(*App)
@@ -122,13 +122,13 @@ func formatBaseName(basename string) string {
 // addConfigFlag adds the --config flag to the command :zh 添加 --config 标志到命令
 func printWorkingDir() {
 	wd, _ := os.Getwd()
-	fmt.Printf("%v WorkingDir: %s", progressMessage, wd)
+	fmt.Printf("%v WorkingDir: %s \n", progressMessage, wd)
 }
 
 // applyOptionRules applies the rules to the options :zh 适用规则到选项
 func (a *App) applyOptionRules() error {
-	if completeableOptions, ok := a.options.(CompleteableOptions); ok {
-		if err := completeableOptions.Complete(); err != nil {
+	if completeOptions, ok := a.options.(CompleteableOptions); ok {
+		if err := completeOptions.Complete(); err != nil {
 			return err
 		}
 	}

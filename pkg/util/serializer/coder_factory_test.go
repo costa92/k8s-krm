@@ -32,7 +32,6 @@ func Test_testMetaFactory(t *testing.T) {
 		return
 	}
 	fmt.Println(encode)
-
 }
 
 func Test_Run(t *testing.T) {

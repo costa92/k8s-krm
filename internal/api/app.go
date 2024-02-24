@@ -4,6 +4,7 @@ import (
 	"github.com/costa92/krm/internal/api/config"
 	"github.com/costa92/krm/internal/api/options"
 	"github.com/costa92/krm/pkg/app"
+	"github.com/costa92/logger"
 )
 
 // NewApp creates a new app for the api service
@@ -21,6 +22,9 @@ func NewApp(basename string) *app.App {
 // Path: internal/api/app.go
 func run(opts *options.RunOptions) app.RunFunc {
 	return func(basename string) error {
+		logger.Init(opts.Log)
+		defer logger.Flush()
+
 		cfg, err := config.CreateConfigFromOptions(opts)
 		if err != nil {
 			return err
