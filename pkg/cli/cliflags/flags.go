@@ -2,9 +2,9 @@ package cliflags
 
 import (
 	goflag "flag"
-	"github.com/costa92/logger"
 	"strings"
 
+	"github.com/costa92/logger"
 	"github.com/spf13/pflag"
 )
 
@@ -30,7 +30,7 @@ func WarnWordSepNormalizeFunc(_ *pflag.FlagSet, name string) pflag.NormalizedNam
 
 func PrintFlags(flags *pflag.FlagSet) {
 	flags.VisitAll(func(flag *pflag.Flag) {
-		//fmt.Printf(" FLAG: --%s=%q", flag.Name, flag.Value)
+		// fmt.Printf(" FLAG: --%s=%q", flag.Name, flag.Value)
 		logger.Infof(" FLAG: --%s=%q", flag.Name, flag.Value)
 	})
 }

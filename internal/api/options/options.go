@@ -2,11 +2,11 @@ package options
 
 import (
 	"encoding/json"
-	"github.com/costa92/logger"
 
 	"github.com/costa92/krm/pkg/cli/cliflags"
 	"github.com/costa92/krm/pkg/options"
 	"github.com/costa92/krm/pkg/server"
+	"github.com/costa92/logger"
 )
 
 type RunOptions struct {
