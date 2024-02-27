@@ -91,9 +91,8 @@ func (a *App) buildCommand() {
 
 func (a *App) runCommand(cmd *cobra.Command, _ []string) error {
 	printWorkingDir()
-	cliflags.PrintFlags(cmd.Flags())
-
 	// Bind the flags to the options
+	cliflags.PrintFlags(cmd.Flags())
 	if err := viper.Unmarshal(a.options); err != nil {
 		return err
 	}

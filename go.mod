@@ -4,7 +4,7 @@ go 1.21.0
 
 require (
 	github.com/BurntSushi/toml v1.3.2
-	github.com/costa92/logger v0.0.2
+	github.com/costa92/logger v0.0.3
 	github.com/fatih/color v1.14.1
 	github.com/gin-contrib/pprof v1.4.0
 	github.com/gin-gonic/gin v1.9.1
@@ -17,7 +17,7 @@ require (
 	gopkg.in/yaml.v3 v3.0.1
 )
 
-replace github.com/costa92/logger v0.0.2 => ../logger
+// replace github.com/costa92/logger v0.0.2 => ../logger
 
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
