@@ -5,7 +5,9 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/costa92/krm/internal/pkg/middleware"
 	"github.com/costa92/krm/pkg/version"
+	"github.com/costa92/logger"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	ginprometheus "github.com/zsais/go-gin-prometheus"
@@ -24,12 +26,25 @@ type GenericAPIServer struct {
 
 func initGenericAPIServer(s *GenericAPIServer) {
 	s.Setup()
+	s.InstallMiddlewares()
 	s.InstallAPIs()
+}
+
+func (s *GenericAPIServer) InstallMiddlewares() {
+	if len(s.middlewares) > 0 {
+		for _, m := range s.middlewares {
+			if mw, ok := middleware.Middlewares[m]; ok {
+				s.Use(mw)
+			} else {
+				logger.Errorf("middleware %s not found", m)
+			}
+		}
+	}
 }
 
 func (s *GenericAPIServer) Setup() {
 	gin.DebugPrintRouteFunc = func(httpMethod, absolutePath, handlerName string, nuHandlers int) {
-		log.Printf("%-6s %-s --> %s (%d handlers)", httpMethod, absolutePath, handlerName, nuHandlers)
+		logger.Infof("%-6s %-s --> %s (%d handlers)", httpMethod, absolutePath, handlerName, nuHandlers)
 	}
 }
 

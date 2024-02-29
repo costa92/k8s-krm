@@ -9,9 +9,10 @@ import (
 )
 
 type ServerRunOptions struct {
-	Mode           string
-	Healthz        bool
-	RequestTimeout time.Duration
+	Mode           string        `json:"mode" mapstructure:"mode" yaml:"mode"`
+	Healthz        bool          `json:"healthz" mapstructure:"healthz" yaml:"healthz"`
+	Middlewares    []string      `json:"middlewares" mapstructure:"middlewares" yaml:"middlewares`
+	RequestTimeout time.Duration `json:"request-timeout" mapstructure:"request-timeout" yaml:"request-timeout`
 }
 
 func NewServerRunOptions() *ServerRunOptions {
@@ -35,6 +36,7 @@ func (s *ServerRunOptions) ApplyTo(cfg *server.Config) error {
 	cfg.Mode = s.Mode
 	cfg.Healthz = s.Healthz
 	cfg.RequestTimeout = s.RequestTimeout
+	cfg.Middlewares = s.Middlewares
 	return nil
 }
 
@@ -45,4 +47,7 @@ func (s *ServerRunOptions) AddFlags(fs *pflag.FlagSet) {
 	fs.DurationVar(&s.RequestTimeout, "request-timeout", s.RequestTimeout, "The default request timeout")
 	fs.BoolVar(&s.Healthz, "healthz", s.Healthz, "Enable healthz endpoint")
 	fs.StringVar(&s.Mode, "mode", s.Mode, "Set gin mode")
+
+	fs.StringSliceVar(&s.Middlewares, "server.middlewares", s.Middlewares, ""+
+		"List of allowed middlewares for server, comma separated. If this list is empty default middlewares will be used.")
 }
