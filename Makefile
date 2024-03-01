@@ -59,8 +59,9 @@ dev/dockerfile:
 	docker build -t $(IMAGE_NAME) -f cmd/krm/Dockerfile .
 
 # https://linuxcommand.org/lc3_adv_awk.php
+# console color word: https://blog.csdn.net/u014470361/article/details/81512330
 # help
 .PHONY: help
 help: Makefile  ## Show this help.
-	@awk ' BEGIN {FS = ":.*##"; printf "\nUsage: \n make <TARGETS> <OPTIONS> \n"} ' Makefile #$(MAKEFILE_LIST)
+	@awk ' BEGIN {FS = ":.*##"; printf "\nUsage: \n  make \033[0;36m<TARGETS> <OPTIONS> \033[0m\n\n\033[35mTargets:\033[0m\n \n"} ' Makefile #$(MAKEFILE_LIST)
 	@echo -e "$$USAGE_OPTIONS"
