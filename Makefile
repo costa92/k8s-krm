@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := help
 
 IMAGE_NAME = "costa92/krm-api:latest"
+IMAGE_NAME = "costa92/krm:latest"
 GIT_REVISION = $(shell git show -s --pretty=format:%h)
-GO_MOD_DOMAIN = "github.com/costa92/krm-api"
+GO_MOD_DOMAIN = "github.com/costa92/krm"
 
 
 .PHONY: all
