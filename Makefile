@@ -1,10 +1,26 @@
+.DEFAULT_GOAL := help
+
 IMAGE_NAME = "costa92/krm-api:latest"
 GIT_REVISION = $(shell git show -s --pretty=format:%h)
 GO_MOD_DOMAIN = "github.com/costa92/krm-api"
 
-.DEFAULT_GOAL := help
+
 .PHONY: all
 all: fmt lint
+
+include scripts/make-rules/common.mk
+include scripts/make-rules/all.mk
+include scripts/make-rules/common-test.mk
+
+define USAGE_OPTIONS
+
+\033[35mOptions:\033[0m
+  ALL 	 Run all the targets
+
+endef
+export USAGE_OPTIONS
+
+
 
 
 vet:
@@ -40,3 +56,10 @@ lint:
 
 dev/dockerfile:
 	docker build -t $(IMAGE_NAME) -f cmd/krm/Dockerfile .
+
+# https://linuxcommand.org/lc3_adv_awk.php
+# help
+.PHONY: help
+help: Makefile  ## Show this help.
+	@awk ' BEGIN {FS = ":.*##"; printf "\nUsage: \n make <TARGETS> <OPTIONS> \n"} ' Makefile #$(MAKEFILE_LIST)
+	@echo -e "$$USAGE_OPTIONS"
