@@ -18,12 +18,10 @@ var defaultLogFormatter = func(param gin.LogFormatterParams) string {
 		methodColor = param.MethodColor()
 		resetColor = param.ResetColor()
 	}
-
 	if param.Latency > time.Minute {
 		// Truncate in a golang < 1.8 safe way
-		param.Latency = param.Latency - param.Latency%time.Second
+		param.Latency -= param.Latency % time.Second
 	}
-
 	return fmt.Sprintf("%s%3d%s - [%s] \"%v %s%s%s %s\" %s",
 		// param.TimeStamp.Format("2006/01/02 - 15:04:05"),
 		statusColor, param.StatusCode, resetColor,

@@ -11,8 +11,8 @@ import (
 type ServerRunOptions struct {
 	Mode           string        `json:"mode" mapstructure:"mode" yaml:"mode"`
 	Healthz        bool          `json:"healthz" mapstructure:"healthz" yaml:"healthz"`
-	Middlewares    []string      `json:"middlewares" mapstructure:"middlewares" yaml:"middlewares`
-	RequestTimeout time.Duration `json:"request-timeout" mapstructure:"request-timeout" yaml:"request-timeout`
+	Middlewares    []string      `json:"middlewares" mapstructure:"middlewares" yaml:"middlewares"`
+	RequestTimeout time.Duration `json:"request-timeout" mapstructure:"request-timeout" yaml:"request-timeout"`
 }
 
 func NewServerRunOptions() *ServerRunOptions {

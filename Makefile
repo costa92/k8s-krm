@@ -2,6 +2,11 @@ IMAGE_NAME = "costa92/krm-api:latest"
 GIT_REVISION = $(shell git show -s --pretty=format:%h)
 GO_MOD_DOMAIN = "github.com/costa92/krm-api"
 
+.DEFAULT_GOAL := help
+.PHONY: all
+all: fmt lint
+
+
 vet:
 	go vet ./...
 
