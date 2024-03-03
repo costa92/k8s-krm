@@ -24,6 +24,16 @@ export USAGE_OPTIONS
 
 
 
+## --------------------------------------
+## Lint / Verification
+## --------------------------------------
+
+##@ Lint and Verify
+
+.PHONY: lint
+lint: ## Run CI-related linters. Run all linters by specifying `A=1`.
+	$(MAKE)  lint.golangci-lint
+
 vet:
 	go vet ./...
 
@@ -63,5 +73,7 @@ dev/dockerfile:
 # help
 .PHONY: help
 help: Makefile  ## Show this help.
-	@awk ' BEGIN {FS = ":.*##"; printf "\nUsage: \n  make \033[0;36m<TARGETS> <OPTIONS> \033[0m\n\n\033[35mTargets:\033[0m\n \n"} ' Makefile #$(MAKEFILE_LIST)
+	#@awk ' BEGIN {FS = ":.*##"; printf "\nUsage: \n  make \033[0;36m<TARGETS> <OPTIONS> \033[0m\n\n\033[35mTargets:\033[0m\n \n"} ' Makefile #$(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<TARGETS> <OPTIONS>\033[0m\n\n\033[35mTargets:\033[0m\n"} /^[0-9A-Za-z._-]+:.*?##/ { printf "  \033[36m%-45s\033[0m %s\n", $$1, $$2 } /^\$$\([0-9A-Za-z_-]+\):.*?##/ { gsub("_","-", $$1); printf "  \033[36m%-45s\033[0m %s\n", tolower(substr($$1, 3, length($$1)-7)), $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' Makefile #$(MAKEFILE_LIST)
 	@echo -e "$$USAGE_OPTIONS"
+
