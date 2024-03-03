@@ -13,3 +13,7 @@ SHELL := /usr/bin/env bash -o errexit -o pipefail +o nounset
 .SHELLFLAGS = -ec
 
 export SHELLOPTS := errexit
+
+# Variables
+## scripts directory
+SCRIPTS_DIR=$(KRM_ROOT)/scripts

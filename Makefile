@@ -5,9 +5,8 @@ IMAGE_NAME = "costa92/krm:latest"
 GIT_REVISION = $(shell git show -s --pretty=format:%h)
 GO_MOD_DOMAIN = "github.com/costa92/krm"
 
-
 .PHONY: all
-all: fmt lint
+all: fmt
 
 include scripts/make-rules/common.mk
 include scripts/make-rules/all.mk
@@ -17,8 +16,9 @@ define USAGE_OPTIONS
 
 \033[35mOptions:\033[0m
   ALL 	 Run all the targets
-
+  V      Set to 1 to enable verbose build  (default: 0)
 endef
+
 export USAGE_OPTIONS
 
 
@@ -51,9 +51,9 @@ install:
 	which golangci-lint
 	golangci-lint --version
 
-lint:
-	golangci-lint version
-	golangci-lint run -v --color always --out-format colored-line-number
+#lint:
+#	golangci-lint version
+#	golangci-lint run -v --color always --out-format colored-line-number
 
 dev/dockerfile:
 	docker build -t $(IMAGE_NAME) -f cmd/krm/Dockerfile .
