@@ -2,9 +2,10 @@
 .PHONY: _install.golangci-lint
 _install.golangci-lint:
 	@echo "===========> Install golangci-lint $(GOLANGCI_LINT_VERSION)"
+	@$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@$(GOLANGCI_LINT_VERSION)
 	@chmod +x $(SCRIPTS_DIR)/add-completion.sh
 	@echo "===> execute: golangci-lint completion bash > golangci-lint-completion.bash"
-	@$(SCRIPTS_DIR)/add-completion.sh golangci-lint bash
+	@$(SCRIPTS_DIR)/add-completion.sh golangci-lint zsh
 
 
 .PHONY: tools.verify.%
