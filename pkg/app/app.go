@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/costa92/krm/pkg/util/term"
 	"os"
 	"runtime"
 	"strings"
@@ -62,7 +63,7 @@ func WithRunFunc(run RunFunc) Option {
 }
 
 func (a *App) buildCommand() {
-	cmd := cobra.Command{
+	cmd := &cobra.Command{
 		Use:           formatBaseName(a.basename),
 		Short:         a.name,
 		SilenceUsage:  true,
@@ -85,8 +86,10 @@ func (a *App) buildCommand() {
 	}
 
 	addConfigFlag(a.basename, namedFlagSets.FlagSet("global"))
+	cols, _, _ := term.TerminalSize(cmd.OutOrStdout())
+	cliflags.SetUsageAndHelpFunc(cmd, namedFlagSets, cols)
 
-	a.cmd = &cmd
+	a.cmd = cmd
 }
 
 func (a *App) runCommand(cmd *cobra.Command, _ []string) error {
