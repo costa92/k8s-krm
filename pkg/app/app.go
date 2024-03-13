@@ -87,8 +87,8 @@ func (a *App) buildCommand() {
 
 	addConfigFlag(a.basename, namedFlagSets.FlagSet("global"))
 	cols, _, _ := term.TerminalSize(cmd.OutOrStdout())
-	cliflags.SetUsageAndHelpFunc(cmd, namedFlagSets, cols)
 
+	cliflags.SetUsageAndHelpFunc(cmd, namedFlagSets, cols)
 	a.cmd = cmd
 }
 

@@ -32,6 +32,7 @@ func (s *SecureServingOptions) Address() string {
 	return net.JoinHostPort(s.BindAddress, strconv.Itoa(s.BindPort))
 }
 
+// Validate checks the SecureServingOptions and returns a slice of errors if there are any.
 func (s *SecureServingOptions) Validate() []error {
 	var errors []error
 	if s.BindPort == 0 {
