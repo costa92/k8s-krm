@@ -26,11 +26,11 @@ type GenericAPIServer struct {
 
 func initGenericAPIServer(s *GenericAPIServer) {
 	s.Setup()
-	s.InstallMiddlewares()
-	s.InstallAPIs()
+	s.installMiddlewares()
+	s.installAPIs()
 }
 
-func (s *GenericAPIServer) InstallMiddlewares() {
+func (s *GenericAPIServer) installMiddlewares() {
 	if len(s.middlewares) > 0 {
 		for _, m := range s.middlewares {
 			if mw, ok := middleware.Middlewares[m]; ok {
@@ -48,7 +48,7 @@ func (s *GenericAPIServer) Setup() {
 	}
 }
 
-func (s *GenericAPIServer) InstallAPIs() {
+func (s *GenericAPIServer) installAPIs() {
 	if s.healthz {
 		s.Engine.GET("/healthz", func(c *gin.Context) {
 			c.JSON(200, gin.H{
@@ -95,4 +95,38 @@ func (s *GenericAPIServer) Run() error {
 		log.Fatal(err.Error())
 	}
 	return nil
+}
+
+// Shutdown shutdown the server
+func (s *GenericAPIServer) Shutdown() error {
+	if s.insecureServer != nil {
+		return s.insecureServer.Shutdown(nil)
+	}
+	return nil
+}
+
+type GroupResourceApi struct {
+	Method  string
+	Path    string
+	Handler gin.HandlerFunc
+}
+
+type GroupResource struct {
+	Version string `json:"version"`
+	Group   string `json:"group"`
+	Apis    []*GroupResourceApi
+}
+
+// ImportRouter 导入 gin 的路由
+func (s *GenericAPIServer) ImportRouter(groupResources ...*GroupResource) {
+	if groupResources != nil {
+		for _, resource := range groupResources {
+			v1 := s.Group("/" + resource.Version)
+			{
+				for _, api := range resource.Apis {
+					v1.Handle(api.Method, "/"+resource.Group+api.Path, api.Handler)
+				}
+			}
+		}
+	}
 }

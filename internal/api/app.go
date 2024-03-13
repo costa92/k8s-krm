@@ -24,7 +24,6 @@ func run(opts *options.RunOptions) app.RunFunc {
 	return func(basename string) error {
 		logger.Init(opts.Log)
 		defer logger.Flush()
-
 		cfg, err := config.CreateConfigFromOptions(opts)
 		if err != nil {
 			return err

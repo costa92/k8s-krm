@@ -24,23 +24,23 @@ func createAPIServer(cfg *config.Config) (*apiServer, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	// api service 实例化
 	server := &apiServer{
 		genericAPIServer: genericServer,
 	}
-
 	return server, nil
 }
 
 func (a *apiServer) PrepareRun() preparedAPIServer {
-	initRouter(a.genericAPIServer.Engine)
+	//initRouter(a.genericAPIServer.Engine)
+	//a.genericAPIServer.ImportRouter(InstallControllerV1(a.genericAPIServer.Engine))
+	groupResources := GetGroupResource()
+	a.genericAPIServer.ImportRouter(groupResources...)
 	return preparedAPIServer{a}
 }
 
 func (a *apiServer) Run() error {
 	// grpc server run
-
 	return a.genericAPIServer.Run()
 }
 
