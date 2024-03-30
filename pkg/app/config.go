@@ -29,7 +29,6 @@ func addConfigFlag(basename string, fs *pflag.FlagSet) {
 		if cfgFile != "" {
 			viper.SetConfigFile(cfgFile)
 		} else {
-			fmt.Println(basename)
 			viper.SetConfigName(basename)
 			viper.AddConfigPath(".")
 			viper.AddConfigPath("$HOME/.config")
