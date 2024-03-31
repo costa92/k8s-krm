@@ -18,7 +18,6 @@ func NewApp(basename string) *app.App {
 	)
 	return application
 }
-:
 // Path: internal/api/app.go
 func run(opts *options.RunOptions) app.RunFunc {
 	return func(basename string) error {

@@ -7,5 +7,6 @@ func Run(cfg *config.Config) error {
 	if err != nil {
 		return err
 	}
+  // PrepareRun() returns a server with the routes registered
 	return server.PrepareRun().Run()
 }
