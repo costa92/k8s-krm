@@ -18,12 +18,13 @@ func NewApp(basename string) *app.App {
 	)
 	return application
 }
-
+:
 // Path: internal/api/app.go
 func run(opts *options.RunOptions) app.RunFunc {
 	return func(basename string) error {
-		logger.Init(opts.Log)
-		defer logger.Flush()
+		logger.Init(opts.Log)  // 初始化日志
+		defer logger.Flush()  // 程序退出时刷新日志
+    // 从配置文件中创建配置
 		cfg, err := config.CreateConfigFromOptions(opts)
 		if err != nil {
 			return err
